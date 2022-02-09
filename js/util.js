@@ -11,18 +11,14 @@ const getRandomInt = (min, max) => {
   return Math.floor(Math.random() * (max - min +1)) + min;
 };
 
-getRandomInt(1, 10);
-
 //Проверка строки
 const stringCount = (text, num) => {
   return text.length <= num;
 };
-
-stringCount('Проверочное сообщение', 140);
 
 //Случайный элемент массива
 const getRandomElementArr = (array) => {
   return array[getRandomInt(0, array.length -1)];
 };
 
-export { getRandomInt, getRandomElementArr };
+export { getRandomInt, getRandomElementArr, stringCount };
