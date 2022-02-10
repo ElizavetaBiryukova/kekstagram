@@ -3,7 +3,7 @@ import {
 } from './data.js';
 import {
   showBigPicture
-} from './full-image.js';
+} from './big-picture.js';
 
 const photosList = document.querySelector('.pictures');
 const photosTemplate = document.querySelector('#picture').content.querySelector('.picture');

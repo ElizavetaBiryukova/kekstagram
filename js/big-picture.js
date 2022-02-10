@@ -16,7 +16,6 @@ const closeBigPicture = () => {
   });
 };
 
-
 const createComment = (comment) => {
   const commentElement = commentsTemplate.cloneNode(true);
   commentElement.querySelector('.social__picture').src = comment.avatar;
@@ -46,8 +45,6 @@ const showBigPicture = (picture) => {
   closeBigPicture();
   bigPicture.classList.remove('hidden');
 };
-
-
 
 export {
   showBigPicture
