@@ -41,22 +41,23 @@ const MESSAGE = [
 ];
 
 const addComments = () => {
-  const comment = [];
+  const comments = [];
   for (let i = 0; i < getRandomInt(Comments.MIN, Comments.MAX); i++) {
-    comment.push({
+    comments.push({
       id: getRandomInt(0, 1000),
       avatar: 'img/avatar-' + getRandomInt(1, 6) + '.svg',
       message: getRandomElementArr(MESSAGE),
       name: getRandomElementArr(NAME),
     });
   }
+  return comments;
 };
 
 
 const addPhoto = () => {
   return {
     id: getRandomInt(Photos.MIN, Photos.MAX),
-    url: 'photos' + getRandomInt(Photos.MIN, Photos.MAX) + '.jpg',
+    url: 'photos/' + getRandomInt(Photos.MIN, Photos.MAX) + '.jpg',
     description: getRandomElementArr(DESCRIPTION),
     likes: getRandomInt(Likes.MIN, Likes.MAX),
     comments: addComments(),

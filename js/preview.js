@@ -1,20 +1,24 @@
 import {
   photos
 } from './data.js';
+import {
+  showBigPicture
+} from './full-image.js';
 
 const photosList = document.querySelector('.pictures');
 const photosTemplate = document.querySelector('#picture').content.querySelector('.picture');
 
-const createPhoto = (({
-  url,
-  likes,
-  comments
-}) => {
+const createPhoto = (picture => {
   const photoElement = photosTemplate.cloneNode(true);
-  photoElement.querySelector('.picture__img').src = url;
-  photoElement.querySelector('.picture__likes').textContent = likes;
-  photoElement.querySelector('.picture__comments').textContent = comments.length;
+  photoElement.querySelector('.picture__img').src = picture.url;
+  photoElement.querySelector('.picture__likes').textContent = picture.likes;
+  photoElement.querySelector('.picture__comments').textContent = picture.comments.length;
 
+
+  photoElement.addEventListener('click', (evt) => {
+    evt.preventDefault();
+    showBigPicture(picture);
+  });
   return photoElement;
 });
 
@@ -27,4 +31,8 @@ const createPhotos = () => {
   photosList.appendChild(photosFragment);
 };
 
-export { createPhotos };
+createPhotos();
+
+export {
+  createPhotos
+};
