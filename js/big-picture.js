@@ -16,6 +16,7 @@ const closeBigPicture = () => {
   });
 };
 
+//Клонирует комментарий
 const createComment = (comment) => {
   const commentElement = commentsTemplate.cloneNode(true);
   commentElement.querySelector('.social__picture').src = comment.avatar;
@@ -25,6 +26,7 @@ const createComment = (comment) => {
   return commentElement;
 };
 
+//Заполняет комментариями всю разметку для них
 const createComments = (comments) => {
   const commentsFragment = document.createDocumentFragment();
   comments.forEach(comment => {
@@ -34,6 +36,7 @@ const createComments = (comments) => {
   commentsList.appendChild(commentsFragment);
 };
 
+//Показыват фотографию в большом размере
 const showBigPicture = (picture) => {
 
   bigPicture.querySelector('.big-picture__img img').src = picture.url;
@@ -47,5 +50,6 @@ const showBigPicture = (picture) => {
 };
 
 export {
-  showBigPicture
+  showBigPicture,
+  body
 };

@@ -8,6 +8,7 @@ import {
 const photosList = document.querySelector('.pictures');
 const photosTemplate = document.querySelector('#picture').content.querySelector('.picture');
 
+//Заполняет разметку фотографии,  добавлет открытие фотографии в большом размере по клику
 const createPhoto = (picture => {
   const photoElement = photosTemplate.cloneNode(true);
   photoElement.querySelector('.picture__img').src = picture.url;
@@ -22,6 +23,7 @@ const createPhoto = (picture => {
   return photoElement;
 });
 
+//Заполняет разметку фотографиями
 const createPhotos = () => {
   const photosFragment = document.createDocumentFragment();
   photos.forEach((photo) => {
