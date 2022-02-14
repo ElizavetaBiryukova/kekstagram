@@ -4,3 +4,4 @@ import './preview.js';
 import './big-picture.js';
 import './editor.js';
 import './scale.js';
+import './effects.js';
