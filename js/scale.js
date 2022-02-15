@@ -7,12 +7,18 @@ STEP: 5
 const scaleControlSmaller = document.querySelector('.scale__control--smaller');
 const scaleControlBigger = document.querySelector('.scale__control--bigger');
 const scaleControlValue = document.querySelector('.scale__control--value');
-const previewImage = document.querySelector('.img-upload__preview');
+const previewImage = document.querySelector('.img-upload__preview img');
 
-// const resetScale = () => {
-// scaleControlValue.value = '100%';
-// previewImage.style.transform = 'scale(0.1)';
-// };
+const resetScale = () => {
+scaleControlValue.value = '100%';
+previewImage.style.transform = 'scale(1.00)';
+previewImage.style.filter = '';
+};
+
+const typingScaleValue = (scaleValue) => {
+  scaleControlValue.value = scaleValue + '%';
+  previewImage.style.transform = `scale(${scaleValue / 100})`;
+};
 
 scaleControlSmaller.addEventListener('click', () => {
   let scaleValue = parseInt(scaleControlValue.value) - Scale.STEP;
@@ -21,10 +27,7 @@ scaleControlSmaller.addEventListener('click', () => {
     scaleValue = Scale.MIN;
   }
 
-  scaleControlValue.value = scaleValue + '%';
-
-  scaleValue = scaleValue / 100;
-  previewImage.style.transform = `scale(${scaleValue})`;
+  typingScaleValue(scaleValue);
 });
 
 scaleControlBigger.addEventListener('click', () => {
@@ -34,11 +37,9 @@ scaleControlBigger.addEventListener('click', () => {
     scaleValue = Scale.MAX;
   }
 
-  scaleControlValue.value = scaleValue + '%';
-  scaleValue = scaleValue / 100;
-  previewImage.style.transform = `scale(${scaleValue})`;
+  typingScaleValue(scaleValue);
 });
 
-export {
-  previewImage
-};
+
+
+export { previewImage, resetScale };

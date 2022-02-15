@@ -1,4 +1,5 @@
 import {body} from './big-picture.js';
+import { resetScale } from './scale.js';
 
 const Keys = { ESCAPE: 'Escape', ESC: 'Esc' };
 const uploadModal = document.querySelector('.img-upload__overlay');
@@ -21,12 +22,14 @@ const closeUploadModal = () => {
 //Закрытие окна редактирования на кнопку "крестик"
 uploadClose.addEventListener('click',() => {
   closeUploadModal();
+  resetScale();
 });
 
 //Закрытие окна на кнопку ESCAPE
 document.addEventListener('keydown', (evt) => {
   if (evt.key === Keys.ESCAPE || evt.key === Keys.ESC) {
     closeUploadModal();
+    resetScale();
   }
 });
 
