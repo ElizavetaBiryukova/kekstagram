@@ -1,7 +1,19 @@
-import {body} from './big-picture.js';
-import { resetScale } from './scale.js';
+import {
+  body
+} from './big-picture.js';
+import {
+  effectLevel,
+  usedClass
+} from './effects.js';
+import {
+  scaleControlValue,
+  previewImage
+} from './scale.js';
 
-const Keys = { ESCAPE: 'Escape', ESC: 'Esc' };
+const Keys = {
+  ESCAPE: 'Escape',
+  ESC: 'Esc'
+};
 const uploadModal = document.querySelector('.img-upload__overlay');
 const uploadInput = document.querySelector('#upload-file');
 const uploadClose = document.querySelector('#upload-cancel');
@@ -12,6 +24,17 @@ uploadInput.addEventListener('change', () => {
   body.classList.add('modal-open');
 });
 
+//Сброс настроек
+const resetSetting = () => {
+  scaleControlValue.value = '100%';
+  previewImage.style.transform = 'scale(1.00)';
+  previewImage.style.filter = '';
+  if (usedClass) {
+    previewImage.classList.remove(usedClass);
+  }
+  effectLevel.classList.add('visually-hidden');
+};
+
 //Закрытие окна редактирования
 const closeUploadModal = () => {
   uploadModal.classList.add('hidden');
@@ -20,16 +43,17 @@ const closeUploadModal = () => {
 };
 
 //Закрытие окна редактирования на кнопку "крестик"
-uploadClose.addEventListener('click',() => {
+uploadClose.addEventListener('click', () => {
   closeUploadModal();
-  resetScale();
+  resetSetting();
 });
 
 //Закрытие окна на кнопку ESCAPE
 document.addEventListener('keydown', (evt) => {
   if (evt.key === Keys.ESCAPE || evt.key === Keys.ESC) {
     closeUploadModal();
-    resetScale();
+    resetSetting();
   }
 });
+
 
