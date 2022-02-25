@@ -1,11 +1,66 @@
 /* global noUiSlider:readonly */
 
-import { previewImage } from './scale.js';
+import {
+  previewImage
+} from './scale.js';
 
-const Slider = {
-  MIN: 0,
-  MAX: 100,
-  STEP: 1,
+const SettingsSlide = {
+  CHROME: {
+    MIN: 0,
+    MAX: 1,
+    STEP: 0.1,
+    START: 1,
+    FILTER: 'grayscale',
+    EFFECT: 'effects__preview--chrome',
+  },
+
+  SEPIA: {
+    MIN: 0,
+    MAX: 1,
+    STEP: 0.1,
+    START: 1,
+    FILTER: 'sepia',
+    EFFECT: 'effects__preview--sepia',
+
+  },
+
+  MARVIN: {
+    MIN: 0,
+    MAX: 100,
+    STEP: 1,
+    START: 100,
+    FILTER: 'invert',
+    EFFECT: 'effects__preview--marvin',
+    NAME: 'marvin',
+  },
+
+  PHOBOS: {
+    MIN: 0,
+    MAX: 3,
+    STEP: 0.1,
+    START: 3,
+    FILTER: 'blur',
+    EFFECT: 'effects__preview--phobos',
+    NAME: 'phobos',
+  },
+
+  HEAT: {
+    MIN: 1,
+    MAX: 3,
+    STEP: 0.1,
+    START: 3,
+    FILTER: 'brightness',
+    EFFECT: 'effects__preview--heat',
+  },
+
+  NONE: {
+    MIN: 0,
+    MAX: 0.1,
+    STEP: 0,
+    START:0,
+    FILTER: 'none',
+    EFFECT: 'effects__preview--none',
+  }
 };
 
 const effectLevel = document.querySelector('.img-upload__effect-level');
@@ -13,75 +68,78 @@ const effectLevelValue = document.querySelector('.effect-level__value');
 const effectSlider = document.querySelector('.effect-level__slider');
 const effectRadioGroup = document.querySelector('.img-upload__effects');
 
-effectLevel.classList.add('visually-hidden');
-
-let usedClass = '';
-
-const effects = {
-  none: () => {
-    effectLevel.classList.add('visually-hidden');
-    return 'none';
-  },
-  chrome: () => {
-    effectLevel.classList.remove('visually-hidden');
-    return `grayscale(${parseInt(effectLevelValue.value, 10) * 0.01})`;
-  },
-  sepia: () => {
-    effectLevel.classList.remove('visually-hidden');
-    return `sepia(${parseInt(effectLevelValue.value, 10) * 0.01})`;
-  },
-  marvin: () => {
-    effectLevel.classList.remove('visually-hidden');
-    return `invert(${Math.floor(effectLevelValue.value, 10)}%)`;
-  },
-  phobos: () => {
-    effectLevel.classList.remove('visually-hidden');
-    return `blur(${(parseInt(effectLevelValue.value, 10) * 3) * 0.01}px)`;
-  },
-  heat: () => {
-    effectLevel.classList.remove('visually-hidden');
-    return `brightness(${(parseInt(effectLevelValue.value, 10) * 3) * 0.01})`;
-  },
+const resetSettingEffects = () => {
+  previewImage.style.filter = SettingsSlide.NONE.FILTER;
+  previewImage.classList.remove(previewImage.classList[0]);
+  previewImage.classList.add(SettingsSlide.NONE.EFFECT);
+  effectLevel.classList.add('visually-hidden');
 };
 
-// Для эффекта «Хром» — filter: grayscale(0..1) с шагом 0.1;
-// Для эффекта «Сепия» — filter: sepia(0..1) с шагом 0.1;
-// Для эффекта «Марвин» — filter: invert(0..100%) с шагом 1%;
-// Для эффекта «Фобос» — filter: blur(0..3px) с шагом 0.1px;
-// Для эффекта «Зной» — filter: brightness(1..3) с шагом 0.1;
-// Для эффекта «Оригинал» CSS-стили filter удаляются.
-
-const onEffectRadioGroupClick = (evt) => {
-  if (evt.target.classList.contains('effects__preview')) {
-    if (!usedClass) {
-      previewImage.classList.remove(usedClass);
-    }
-    effectSlider.noUiSlider.set(100);
-    let currentClass = evt.target.classList[1];
-    usedClass = currentClass;
-
-    previewImage.classList.add(currentClass);
-    previewImage.style.filter = effects[currentClass.replace('effects__preview--', '')]();
-  }
-};
-
-effectRadioGroup.addEventListener('click', onEffectRadioGroupClick);
-
-//Добавляет слайдер
+resetSettingEffects();
 
 noUiSlider.create(effectSlider, {
   range: {
-    min: Slider.MIN,
-    max: Slider.MAX,
+    min: 0,
+    max: 100,
   },
-  start: Slider.MAX,
-  connect: 'lower',
+  behaviour: 'snap',
+  connect: [true, false],
+  start: 80,
+  step: 1,
 });
 
+effectRadioGroup.addEventListener('change', (evt) => {
+  previewImage.classList.remove(previewImage.classList[0]);
+  const sliderSetting = SettingsSlide[evt.target.value.toUpperCase()];
+  previewImage.classList.add(sliderSetting.EFFECT);
 
-effectSlider.noUiSlider.on('update', () => {
-  effectLevelValue.value = effectSlider.noUiSlider.get();
-  previewImage.style.filter = effects[usedClass.replace('effects__preview--', '')]();
+  if (evt.target.value === SettingsSlide.NONE.FILTER) {
+
+    effectLevel.classList.add('visually-hidden');
+
+  } else {
+
+    effectLevel.classList.remove('visually-hidden');
+  }
+
+  effectSlider.noUiSlider.updateOptions({
+    range: {
+      min: sliderSetting.MIN,
+      max: sliderSetting.MAX,
+    },
+    start: sliderSetting.START,
+    step: sliderSetting.STEP,
+    format: {
+      to: function (value) {
+        if (Number.isInteger(value)) {
+          return value.toFixed(0);
+        }
+        return value.toFixed(1);
+      },
+      from: function (value) {
+        return parseFloat(value);
+      },
+    },
+  });
+
+  effectSlider.noUiSlider.on('update', (value, handle) => {
+    effectLevelValue.value = value[handle];
+    if (evt.target.value === SettingsSlide.NONE.FILTER) {
+      previewImage.style.filter = SettingsSlide.NONE.FILTER;
+
+    } else {
+      let units = '';
+      switch (evt.target.value) {
+        case SettingsSlide.MARVIN.NAME:
+          units = '%';
+          break;
+        case SettingsSlide.PHOBOS.NAME:
+          units = 'px';
+          break;
+      }
+      previewImage.style.filter = `${sliderSetting.FILTER}(${effectLevelValue.value}${units})`;
+    }
+  });
 });
 
-export { effectLevel, usedClass };
+export {resetSettingEffects};

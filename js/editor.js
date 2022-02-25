@@ -2,12 +2,10 @@ import {
   body
 } from './big-picture.js';
 import {
-  effectLevel,
-  usedClass
+  resetSettingEffects
 } from './effects.js';
 import {
-  scaleControlValue,
-  previewImage
+  resetSettingScal
 } from './scale.js';
 
 const Keys = {
@@ -26,13 +24,8 @@ uploadInput.addEventListener('change', () => {
 
 //Сброс настроек
 const resetSetting = () => {
-  scaleControlValue.value = '100%';
-  previewImage.style.transform = 'scale(1.00)';
-  previewImage.style.filter = '';
-  if (usedClass) {
-    previewImage.classList.remove(usedClass);
-  }
-  effectLevel.classList.add('visually-hidden');
+  resetSettingScal();
+  resetSettingEffects();
 };
 
 //Закрытие окна редактирования

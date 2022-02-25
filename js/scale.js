@@ -34,6 +34,9 @@ scaleControlBigger.addEventListener('click', () => {
   typingScaleValue(scaleValue);
 });
 
+const resetSettingScal = () => {
+  scaleControlValue.value = '100%';
+  previewImage.style.transform = 'scale(1.00)';
+};
 
-
-export { previewImage, scaleControlValue };
+export { previewImage, resetSettingScal };
