@@ -5,3 +5,4 @@ import './big-picture.js';
 import './editor.js';
 import './scale.js';
 import './effects.js';
+import './validation.js';
