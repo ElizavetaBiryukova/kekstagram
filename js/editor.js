@@ -7,11 +7,10 @@ import {
 import {
   resetSettingScal
 } from './scale.js';
+import {
+  Keys
+} from './util.js';
 
-const Keys = {
-  ESCAPE: 'Escape',
-  ESC: 'Esc'
-};
 const uploadModal = document.querySelector('.img-upload__overlay');
 const uploadInput = document.querySelector('#upload-file');
 const uploadClose = document.querySelector('#upload-cancel');
@@ -48,5 +47,3 @@ document.addEventListener('keydown', (evt) => {
     resetSetting();
   }
 });
-
-

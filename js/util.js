@@ -1,3 +1,8 @@
+const Keys = {
+  ESCAPE: 'Escape',
+  ESC: 'Esc'
+};
+
 //Случайное число
 const getRandomInt = (min, max) => {
   if (min < 0 || max < 0) {
@@ -21,4 +26,5 @@ const getRandomElementArr = (array) => {
   return array[getRandomInt(0, array.length -1)];
 };
 
-export { getRandomInt, getRandomElementArr, stringCount };
+export { getRandomInt, getRandomElementArr, stringCount, Keys };
+
