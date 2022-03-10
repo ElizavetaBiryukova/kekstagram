@@ -1,19 +1,12 @@
-import {
-  body
-} from './big-picture.js';
-import {
-  resetSettingEffects
-} from './effects.js';
-import {
-  resetSettingScal
-} from './scale.js';
-import {
-  Keys
-} from './util.js';
+import {body} from './big-picture.js';
+import {resetSettingEffects} from './effects.js';
+import {resetSettingScal} from './scale.js';
+import {Keys} from './util.js';
 
 const uploadModal = document.querySelector('.img-upload__overlay');
 const uploadInput = document.querySelector('#upload-file');
 const uploadClose = document.querySelector('#upload-cancel');
+const uploadImgForm = document.querySelector('.img-upload__form');
 
 //Появляется окно редактирования
 uploadInput.addEventListener('change', () => {
@@ -47,3 +40,20 @@ document.addEventListener('keydown', (evt) => {
     resetSetting();
   }
 });
+
+const setImgFormSubmit = (onSuccess) => {
+  uploadImgForm.addEventListener('submit', (evt) => {
+    evt.preventDefault();
+
+    const formData = new FormData(evt.target);
+
+    fetch(
+      'https://22.javascript.pages.academy/kekstagram', {
+        method: 'POST',
+        body: formData,
+      },
+    ).then(() => onSuccess());
+  });
+};
+
+export {setImgFormSubmit, closeUploadModal};

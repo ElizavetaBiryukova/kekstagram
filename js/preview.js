@@ -1,9 +1,5 @@
-import {
-  photos
-} from './data.js';
-import {
-  showBigPicture
-} from './big-picture.js';
+// import { photos } from './data.js';
+import { showBigPicture } from './big-picture.js';
 
 const photosList = document.querySelector('.pictures');
 const photosTemplate = document.querySelector('#picture').content.querySelector('.picture');
@@ -24,7 +20,7 @@ const createPhoto = (picture => {
 });
 
 //Заполняет разметку фотографиями
-const createPhotos = () => {
+const createPhotos = (photos) => {
   const photosFragment = document.createDocumentFragment();
   photos.forEach((photo) => {
     photosFragment.appendChild(createPhoto(photo));
@@ -33,8 +29,6 @@ const createPhotos = () => {
   photosList.appendChild(photosFragment);
 };
 
-createPhotos();
+// createPhotos();
 
-export {
-  createPhotos
-};
+export { createPhotos };

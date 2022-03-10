@@ -1,8 +1,6 @@
 /* global noUiSlider:readonly */
 
-import {
-  previewImage
-} from './scale.js';
+import { previewImage } from './scale.js';
 
 const SettingsSlide = {
   CHROME: {
