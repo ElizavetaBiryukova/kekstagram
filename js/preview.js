@@ -29,6 +29,4 @@ const createPhotos = (photos) => {
   photosList.appendChild(photosFragment);
 };
 
-// createPhotos();
-
 export { createPhotos };

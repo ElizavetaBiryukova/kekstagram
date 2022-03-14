@@ -5,11 +5,18 @@ import './scale.js';
 import './effects.js';
 import './validation.js';
 import {createPhotos} from './preview.js';
-import {setImgFormSubmit, closeUploadModal} from './editor.js';
+// import {setImgFormSubmit, closeUploadModal} from './editor.js';
+import {showModalError} from './error.js';
+import { request } from './fetch.js';
 
-fetch('https://22.javascript.pages.academy/kekstagram/data')
-  .then((response) => response.json())
-  .then((photos) => {
-    createPhotos(photos);
-  });
-setImgFormSubmit(closeUploadModal);
+const onSuccess = (photos) => {
+  createPhotos(photos);
+};
+
+const onError = () => {
+  showModalError('Не удалось получить данные c сервера. Попробуйте позже.');
+};
+
+request(onSuccess, onError, 'GET');
+
+// setImgFormSubmit(closeUploadModal);
