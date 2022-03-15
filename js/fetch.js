@@ -1,6 +1,6 @@
 const Urls = {
   GET: 'https://22.javascript.pages.academy/kekstagram/data',
-  POST: 'https://22.javascript.pages.academy/kestagram',
+  POST: 'https://22.javascript.pages.academy/kekstagram',
 };
 
 //Функция для отправки заапроса на сервер и подгружения информации

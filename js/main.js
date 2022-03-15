@@ -4,10 +4,12 @@ import './editor.js';
 import './scale.js';
 import './effects.js';
 import './validation.js';
+import './submit-form.js';
 import {createPhotos} from './preview.js';
 // import {setImgFormSubmit, closeUploadModal} from './editor.js';
 import {showModalError} from './error.js';
 import { request } from './fetch.js';
+
 
 const onSuccess = (photos) => {
   createPhotos(photos);
