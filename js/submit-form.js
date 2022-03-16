@@ -1,13 +1,6 @@
-import {
-  request
-} from './fetch.js';
-import {
-  closeUploadModal,
-  resetSetting
-} from './editor.js';
-import {
-  Keys
-} from './util.js';
+import {request} from './fetch.js';
+import {closeUploadModal, resetSetting} from './editor.js';
+import {Keys} from './util.js';
 
 
 const uploadImgForm = document.querySelector('.img-upload__form');
@@ -15,13 +8,32 @@ const errorMessage = document.querySelector('#error').content;
 const successMessage = document.querySelector('#success').content;
 const main = document.querySelector('main');
 
-
-
-
 //Сообщение об успешной отправке
 const createSuccessMessage = () => {
   const success = successMessage.cloneNode(true);
+  document.addEventListener('keydown', escapeSuccessMessageHandler);
+  document.addEventListener('click', closeSuccessMessageHandler);
   main.appendChild(success);
+};
+
+//Закрытие сообщения об успешхе клавишей Esc
+const escapeSuccessMessageHandler = (evt) => {
+  const modalMessage = main.querySelector('.success');
+  evt.preventDefault();
+  if (evt.key === Keys.ESCAPE || evt.key === Keys.ESC) {
+    modalMessage.remove();
+  }
+
+  document.removeEventListener('keydown', escapeSuccessMessageHandler);
+  document.removeEventListener('click', closeSuccessMessageHandler);
+};
+
+//Закрытие сообщения об успехе кликом
+const closeSuccessMessageHandler = () => {
+  const modalMessage = main.querySelector('.success');
+  modalMessage.remove();
+  document.removeEventListener('click', closeSuccessMessageHandler);
+  document.removeEventListener('keydown', escapeSuccessMessageHandler);
 };
 
 //Сообщение об ошибке
@@ -30,47 +42,26 @@ const createErrorMessage = () => {
   main.appendChild(error);
 };
 
-// Закрытие сообщения об ошибке
-const closeErrorMessage = () => {
-  const errorModule = document.querySelector('.error');
-  errorModule.remove();
-};
-
-// Закрытие сообщения об отправке
-const closeSuccessMessage = () => {
-  const successModule = document.querySelector('.success');
-  successModule.remove();
-
-};
-
-//Закрытие окна на кнопку ESCAPE сообщения об отправке
-document.addEventListener('keydown', (evt) => {
+//Закрытие сообщения c ошибкой клавишей Esc
+const escapeErrorMessageHandler = (evt) => {
+  const errorModalMessage = main.querySelector('.error');
   evt.preventDefault();
   if (evt.key === Keys.ESCAPE || evt.key === Keys.ESC) {
-    closeSuccessMessage();
-
+    errorModalMessage.remove();
   }
-});
 
-//Закрытие окна на кнопку ESCAPE сообщения об ошибке
-document.addEventListener('keydown', (evt) => {
-  evt.preventDefault();
-  if (evt.key === Keys.ESCAPE || evt.key === Keys.ESC) {
-    closeErrorMessage();
-  }
-});
+  document.removeEventListener('keydown', escapeErrorMessageHandler);
+  document.removeEventListener('click', closeErrorMessageHandler);
+};
 
-// successButton.addEventListener('click', () => {
-//   const successButton = document.querySelector('.success__button');
-//   evt.preventDefault();
-//   closeSuccessMessage();
-// });
+//Закрытие сообщения с ошибкой кликом
+const closeErrorMessageHandler = () => {
+  const errorModalMessage = main.querySelector('.error');
+  errorModalMessage.remove();
 
-// errorButton.addEventListener('click', (evt) => {
-//   const errorButton = document.querySelector('.error__button');
-//   evt.preventDefault();
-//   closeErrorMessage();
-// });
+  document.removeEventListener('click', closeErrorMessageHandler);
+  document.removeEventListener('keydown', escapeErrorMessageHandler);
+};
 
 const onSuccess = () => {
   closeUploadModal();
@@ -83,8 +74,6 @@ const onError = () => {
   resetSetting();
   createErrorMessage();
 };
-
-
 
 uploadImgForm.addEventListener('submit', (evt) => {
   evt.preventDefault();
