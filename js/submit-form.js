@@ -39,6 +39,8 @@ const closeSuccessMessageHandler = () => {
 //Сообщение об ошибке
 const createErrorMessage = () => {
   const error = errorMessage.cloneNode(true);
+  document.addEventListener('keydown', escapeErrorMessageHandler);
+  document.addEventListener('click', closeErrorMessageHandler);
   main.appendChild(error);
 };
 
