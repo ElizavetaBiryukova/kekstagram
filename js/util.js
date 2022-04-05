@@ -26,5 +26,33 @@ const getRandomElementArr = (array) => {
   return array[getRandomInt(0, array.length -1)];
 };
 
-export { getRandomInt, getRandomElementArr, stringCount, Keys };
+const shuffleArray = (array) => {
+  var currentIndex = array.length, temporaryValue, randomIndex;
+
+  while (0 !== currentIndex) {
+
+    randomIndex = Math.floor(Math.random() * currentIndex);
+    currentIndex -= 1;
+
+    temporaryValue = array[currentIndex];
+    array[currentIndex] = array[randomIndex];
+    array[randomIndex] = temporaryValue;
+  }
+
+  return array;
+};
+
+//Функция устранения дребезга
+const debounce = (cb, delay) => {
+  let timeout;
+  return () => {
+    if (timeout) {
+      clearTimeout(timeout);
+    }
+
+    timeout = setTimeout(cb, delay);
+  };
+};
+
+export { getRandomInt, getRandomElementArr, stringCount, Keys, shuffleArray, debounce };
 

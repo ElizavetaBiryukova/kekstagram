@@ -6,13 +6,9 @@ import './effects.js';
 import './validation.js';
 import './submit-form.js';
 import './filter.js';
-import {createPhotos} from './preview.js';
+import { onSuccess } from './filter.js';
 import {showModalError} from './error.js';
 import { request } from './fetch.js';
-
-const onSuccess = (photos) => {
-  createPhotos(photos);
-};
 
 const onError = () => {
   showModalError('Не удалось получить данные c сервера. Попробуйте позже.');
