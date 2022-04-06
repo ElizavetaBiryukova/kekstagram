@@ -43,14 +43,18 @@ const shuffleArray = (array) => {
 };
 
 //Функция устранения дребезга
-const debounce = (cb, delay) => {
-  let timeout;
-  return () => {
-    if (timeout) {
-      clearTimeout(timeout);
-    }
+const DEBOUNCE_INTERVAL = 500;
 
-    timeout = setTimeout(cb, delay);
+const debounce = (cb) => {
+  let lastTimeout = null;
+
+  return (...args) => {
+    if (lastTimeout) {
+      window.clearTimeout(lastTimeout);
+    }
+    lastTimeout = window.setTimeout(() => {
+      cb(...args);
+    }, DEBOUNCE_INTERVAL);
   };
 };
 

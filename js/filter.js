@@ -8,7 +8,6 @@ import {
 
 const DEFAULT_PREVIEW_LOAD = 25;
 const RANDOM_PREVIEW_LOAD = 10;
-const RERENDER_DELAY = 500;
 
 const imgFilter = document.querySelector('.img-filters');
 let photos = [];
@@ -49,13 +48,14 @@ const onSuccess = (data) => {
 };
 
 const onFilterClick = debounce((evt) => {
+
   if (evt.target.classList.contains('img-filters__button')) {
     removeActiveClass();
     removePhotos();
     evt.target.classList.add('img-filters__button--active');
     filters[evt.target.id]();
   }
-}, RERENDER_DELAY);
+});
 
 imgFilter.addEventListener('click', onFilterClick);
 
