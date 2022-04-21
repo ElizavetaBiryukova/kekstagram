@@ -3,10 +3,10 @@ const COMMENT_LOAD_STEP = 5;
 const bigPicture = document.querySelector('.big-picture');
 const body = document.querySelector('body');
 const closingBigPicture = bigPicture.querySelector('.big-picture__cancel');
-const commentCount = document.querySelector('.social__comment-count'); //надпись количество коментариев
-const commentsLoader = document.querySelector('.comments-loader'); //кнопка загрузки коментов
-const commentsList = document.querySelector('.social__comments'); //Список коментариев
-const commentsTemplate = document.querySelector('#comment').content.querySelector('.social__comment'); //Комментарий
+const commentCount = document.querySelector('.social__comment-count');
+const commentsLoader = document.querySelector('.comments-loader');
+const commentsList = document.querySelector('.social__comments');
+const commentsTemplate = document.querySelector('#comment').content.querySelector('.social__comment');
 let commentsLoaded = [];
 let commentsCount = COMMENT_LOAD_STEP;
 
@@ -45,7 +45,7 @@ const createComments = (comments) => {
   commentCount.textContent = `${commentsLoaded.length} из ${comments.length} комментариев`;
 
   let commentsFragment = document.createDocumentFragment();
-  comments.forEach(comment => {
+  commentsLoaded.forEach(comment => {
     commentsFragment.appendChild(createComment(comment));
   });
 
