@@ -3,7 +3,6 @@ import {resetSettingEffects} from './effects.js';
 import {resetSettingScal} from './scale.js';
 import {Keys} from './util.js';
 
-
 const uploadModal = document.querySelector('.img-upload__overlay');
 const uploadInput = document.querySelector('#upload-file');
 const uploadClose = document.querySelector('#upload-cancel');
@@ -41,7 +40,5 @@ document.addEventListener('keydown', (evt) => {
     resetSetting();
   }
 });
-
-
 
 export {closeUploadModal, resetSetting};

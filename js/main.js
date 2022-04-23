@@ -6,6 +6,7 @@ import './effects.js';
 import './validation.js';
 import './submit-form.js';
 import './filter.js';
+import './load-image.js';
 import { onSuccess } from './filter.js';
 import {showModalError} from './error.js';
 import { request } from './fetch.js';
