@@ -7,7 +7,6 @@ const previews = document.querySelectorAll('.effects__preview');
 uploadInput.addEventListener('change', () => {
   const file = uploadInput.files[0];
   const fileName = file.name.toLowerCase();
-
   const matches = FILE_TYPES.some((it) => {
     return fileName.endsWith(it);
   });
@@ -16,10 +15,10 @@ uploadInput.addEventListener('change', () => {
     const reader = new FileReader();
 
     reader.addEventListener('load', () => {
-      previewImage.stc = reader.result;
+      previewImage.src = reader.result;
 
       previews.forEach((filter) => {
-        filter.style.backgroundImage = `url($(reader.result))`;
+        filter.style.backgroundImage = `url(${reader.result})`;
       });
     });
 
